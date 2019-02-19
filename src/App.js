@@ -15,11 +15,22 @@ const data = [
 ]
 
 class DrumPad extends React.Component {
+
+handleClick = () => {
+  this.audio.play()
+  this.audio.currentTime = 0
+}
+
   render(){
     return(
-      <div className='drum-pad' id={this.props.id}>
+      <div 
+      className='drum-pad' 
+      id={this.props.id}
+      onClick={this.handleClick}
+      >
 <p>{this.props.letter}</p>
 <audio 
+ref={ref => this.audio = ref}
 className = 'clip'
 src={this.props.src} 
 id={this.props.letter}></audio>
@@ -32,6 +43,9 @@ class App extends Component {
   constructor(props){
     super(props)
   }
+
+
+
   render() {
     return (
       <div id='drum-machine'>
@@ -41,6 +55,7 @@ class App extends Component {
 id={d.id}
 letter={d.letter}
 src={d.src}
+
   />
           ))}
       </div>
