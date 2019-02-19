@@ -19,6 +19,7 @@ class DrumPad extends React.Component {
 handleClick = () => {
   this.audio.play()
   this.audio.currentTime = 0
+  this.props.handleDisplay(this.props.id)
 }
 
   render(){
@@ -28,7 +29,7 @@ handleClick = () => {
       id={this.props.id}
       onClick={this.handleClick}
       >
-<p>{this.props.letter}</p>
+<h1>{this.props.letter}</h1>
 <audio 
 ref={ref => this.audio = ref}
 className = 'clip'
@@ -42,19 +43,23 @@ id={this.props.letter}></audio>
 class App extends Component {
   constructor(props){
     super(props)
+    this.state = {
+      display: ''
+    }
   }
 
-
+handleDisplay = display => this.setState({display})
 
   render() {
     return (
       <div id='drum-machine'>
-        <div id='display'></div>
+        <div id='display'>{this.state.display}</div>
         {data.map(d => (
   <DrumPad
 id={d.id}
 letter={d.letter}
 src={d.src}
+handleDisplay = {this.handleDisplay}
 
   />
           ))}
